@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  node-app:
+    build: .
+    image: node-app
+    ports:
+      - '8085:8085'
+    depends_on:
+      - mongodb
+    volumes:
+      - ./src:/usr/src/app/src
+    networks:
+      - node-network
+
+  mongodb:
+    image: mongo
+    ports:
+      - '27017:27017'
+    networks:
+      - node-network
+
+networks:
+  node-network:
+    driver: bridge
